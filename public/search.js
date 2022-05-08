@@ -157,9 +157,11 @@ async function handleSearch(e) {
   page = 1;
   const prevBtn = document.querySelector("#prev");
   prevBtn.style.display = "none";
+  const nextBtn = document.querySelector("#next");
   if (page * numOfPokemonToDisplay < pokemonList.length) {
-    const nextBtn = document.querySelector("#next");
     nextBtn.style.display = "inline-block";
+  } else {
+    nextBtn.style.display = "none";
   }
   showPokemons();
 }
