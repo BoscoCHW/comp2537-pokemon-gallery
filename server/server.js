@@ -57,6 +57,34 @@ app.get("/events/:id", async (req, res) => {
   }
 });
 
+app.get("/events/incrementVote/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { $inc: { hits: 1 } },
+      { new: true }
+    ).exec();
+    res.json(updatedEvent);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
+app.get("/events/decrementVote/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { $inc: { hits: -1 } },
+      { new: true }
+    ).exec();
+    res.json(updatedEvent);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 app.post("/events", async (req, res) => {
   console.log(req.body);
   const { datetime, text } = req.body;

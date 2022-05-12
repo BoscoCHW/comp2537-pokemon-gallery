@@ -10,11 +10,23 @@ const handleDelete = async (eventWrapper) => {
   console.log(await resp.json());
 };
 
-const handleUpVote = (eventWrapper) => {
-  
+const handleUpVote = async (eventWrapper) => {
+  const resp = await fetch(
+    `${apiServerUrl}events/incrementVote/${eventWrapper.id}`
+  );
+  const updatedEvent = await resp.json();
+  const hitsEl = eventWrapper.querySelector(".event-hits");
+  hitsEl.innerText = `Hits: ${updatedEvent.hits}`;
 };
 
-const handleDownVote = (eventWrapper) => {};
+const handleDownVote = async (eventWrapper) => {
+  const resp = await fetch(
+    `${apiServerUrl}events/decrementVote/${eventWrapper.id}`
+  );
+  const updatedEvent = await resp.json();
+  const hitsEl = eventWrapper.querySelector(".event-hits");
+  hitsEl.innerText = `Hits: ${updatedEvent.hits}`;
+};
 
 eventWrappers.forEach((eventWrapper) => {
   eventWrapper.addEventListener("click", (e) => {
@@ -24,10 +36,11 @@ eventWrappers.forEach((eventWrapper) => {
         handleDelete(eventWrapper);
         break;
       case "up-vote":
-        handleUpVote(eventWrapper)
+        handleUpVote(eventWrapper);
         break;
 
       case "down-vote":
+        handleDownVote(eventWrapper);
         break;
     }
   });
