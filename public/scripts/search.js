@@ -1,9 +1,11 @@
 import {
   pokeapiUrl,
+  apiServerUrl,
   getPokemon,
   makePokemonCard,
   handleHomePageBtnClick,
   handleSearchPageBtnClick,
+  postData,
 } from "./helpers.js";
 
 const regionIdMap = {
@@ -125,6 +127,12 @@ async function handleSearch(e) {
     nextBtn.style.display = "none";
   }
   showPokemons();
+  
+  // create a search event in db
+  const data = {
+    text: `User performed search: type=${type}  region=${region}  name=${name}`
+  }
+  postData(`${apiServerUrl}events`, data);
 }
 
 const handlePrev = (e) => {
