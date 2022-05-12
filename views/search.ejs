@@ -12,13 +12,7 @@
     <title>Pokemon App</title>
   </head>
   <body>
-    <header>
-      <h1>Pokemon Gallery</h1>
-    </header>
-    <nav>
-      <a id="homePageBtn" href="/"> Home </a>
-      <a id="searchPageBtn" href="/search"> Search </a>
-    </nav>
+    <%- include("./partials/headerAndNav"); %> 
     <main>
       <div class="search-bar-wrapper">
         <form id="search-form">
@@ -77,9 +71,7 @@
       </div>
     </main>
 
-    <footer>
-      <h5>Copyright © Pokemon Gallery 2022</h5>
-    </footer>
+    <%- include("./partials/footer"); %> 
 
   </body>
 </html>
