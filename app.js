@@ -1,9 +1,7 @@
-require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const fetch = require("node-fetch");
 const app = express();
-const db = require("./config/database")
 const PORT = process.env.PORT || 5000;
 
 app.use(express.static(path.resolve(__dirname, "public")));
@@ -15,10 +13,6 @@ app.use((req, res, next) => {
   console.log(req.url);
   next();
 });
-
-
-// connect to mongodb atlas
-db.connect(process.env.MONGO_URI);
 
 
 app.get("/search", async (req, res) => {
