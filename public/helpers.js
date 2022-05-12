@@ -15,7 +15,7 @@ export const colorMap = {
   normal: "#F5F5F5",
 };
 
-export const pokeapiUrl = "https://pokeapi.co/api/v2/";
+export const pokeapiUrl = "http://localhost:3000/api/v2/";
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
