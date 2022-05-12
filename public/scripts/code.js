@@ -1,7 +1,5 @@
 import {
   getPokemon,
-  handleHomePageBtnClick,
-  handleSearchPageBtnClick,
   makePokemonCard,
 } from "./helpers.js";
 
@@ -28,9 +26,4 @@ window.addEventListener("load", async () => {
     galleryWrapper.appendChild(pokemonCard);
   });
 
-  const homePageBtn = document.querySelector("#homePageBtn");
-  homePageBtn.addEventListener("click", handleHomePageBtnClick);
-
-  const searchPageBtn = document.querySelector("#searchPageBtn");
-  searchPageBtn.addEventListener("click", handleSearchPageBtnClick);
 });

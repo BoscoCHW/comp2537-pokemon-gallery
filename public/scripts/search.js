@@ -3,8 +3,6 @@ import {
   apiServerUrl,
   getPokemon,
   makePokemonCard,
-  handleHomePageBtnClick,
-  handleSearchPageBtnClick,
   postData,
 } from "./helpers.js";
 
@@ -43,8 +41,6 @@ const regionIdMap = {
   },
 };
 
-const homePageBtn = document.querySelector("#homePageBtn");
-const searchPageBtn = document.querySelector("#searchPageBtn");
 
 const galleryWrapper = document.querySelector("#gallery-wrapper");
 const searchSubmitBtn = document.querySelector("#search-form-btn");
@@ -165,8 +161,7 @@ const init = async () => {
   prevBtn.addEventListener("click", handlePrev);
   nextBtn.addEventListener("click", handleNext);
   searchSubmitBtn.addEventListener("click", handleSearch);
-  homePageBtn.addEventListener("click", handleHomePageBtnClick);
-  searchPageBtn.addEventListener("click", handleSearchPageBtnClick);
+
 };
 
 window.addEventListener("load", () => {

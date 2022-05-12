@@ -70,7 +70,7 @@ app.get("/profile/:id", async (req, res) => {
 app.get("/eventHistory", async (req, res) => {
   const response = await fetch("http://localhost:3000/events");
   const data = await response.json();
-  console.log(data);
+  data.reverse();
   res.render("events", { events: data });
 });
 
