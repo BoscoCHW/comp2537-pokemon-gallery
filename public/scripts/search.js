@@ -1,4 +1,10 @@
-import { pokeapiUrl, getPokemon, makePokemonCard } from "./helpers.js";
+import {
+  pokeapiUrl,
+  getPokemon,
+  makePokemonCard,
+  handleHomePageBtnClick,
+  handleSearchPageBtnClick,
+} from "./helpers.js";
 
 const regionIdMap = {
   Kanto: {
@@ -34,6 +40,9 @@ const regionIdMap = {
     end: 898,
   },
 };
+
+const homePageBtn = document.querySelector("#homePageBtn");
+const searchPageBtn = document.querySelector("#searchPageBtn");
 
 const galleryWrapper = document.querySelector("#gallery-wrapper");
 const searchSubmitBtn = document.querySelector("#search-form-btn");
@@ -141,12 +150,15 @@ const handleNext = (e) => {
 };
 const init = async () => {
   prevBtn.style.display = "none";
-  prevBtn.addEventListener("click", handlePrev);
-  nextBtn.addEventListener("click", handleNext);
-  searchSubmitBtn.addEventListener("click", handleSearch);
 
   await getPokemonOfTypeRegionName("all-types", "Kanto", "");
   showPokemons();
+
+  prevBtn.addEventListener("click", handlePrev);
+  nextBtn.addEventListener("click", handleNext);
+  searchSubmitBtn.addEventListener("click", handleSearch);
+  homePageBtn.addEventListener("click", handleHomePageBtnClick);
+  searchPageBtn.addEventListener("click", handleSearchPageBtnClick);
 };
 
 window.addEventListener("load", () => {

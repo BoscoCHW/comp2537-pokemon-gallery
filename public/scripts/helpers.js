@@ -16,6 +16,7 @@ export const colorMap = {
 };
 
 export const pokeapiUrl = "http://localhost:3000/api/v2/";
+export const apiServerUrl = "http://localhost:3000/"
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
@@ -49,3 +50,38 @@ export const makePokemonCard = (pokemon) => {
   pokemonCard.innerHTML = pokemonCardContent;
   return pokemonCard;
 };
+
+
+export async function postData(url = "", data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+export const handleHomePageBtnClick = async e => {
+  e.preventDefault();
+  const data = {
+    text: `User visited home page.`,
+  };
+  const url = `${apiServerUrl}events`;
+  const result = await postData(url, data);
+  console.log(result);
+  window.location.assign("/");
+}
+
+export const handleSearchPageBtnClick = async e => {
+  e.preventDefault();
+  const data = {
+    text: `User visited search page.`,
+  };
+  const url = `${apiServerUrl}events`;
+  const result = await postData(url, data);
+  console.log(result);
+  window.location.assign("/search");
+}
