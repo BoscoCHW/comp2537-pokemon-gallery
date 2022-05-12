@@ -37,6 +37,25 @@ app.get("/events", async (req, res) => {
   res.json(allEvents);
 });
 
+app.get("/events/:id", async (req, res) => {
+  const { id } = req.params;
+  let targetEvent;
+
+  try {
+    targetEvent = await Event.findOne({ _id: id }).exec();
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: "Something went wrong." });
+  }
+
+  if (!targetEvent) {
+    res.status(404).send({ message: `no event with id ${id}` });
+  } else {
+    res.json(targetEvent);
+  }
+
+});
+
 app.post("/events", async (req, res) => {
   console.log(req.body);
   const { datetime, text } = req.body;
