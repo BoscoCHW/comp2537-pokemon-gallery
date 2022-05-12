@@ -13,8 +13,16 @@
   <body>
     <%- include("./partials/headerAndNav"); %> 
     <main>
-      <div id="gallery-wrapper" class="gallery-wrapper">
-      
+      <div class="event-history-wrapper">
+        <ul class="event-history">
+        <% events.forEach(event => { %>
+          <li class="event">
+            <p> <%= event.datetime %> </p> 
+            <p> <%= event.text %> </p>
+            <p> <%= event.hits %> </p>
+          </li>
+        <% }) %>
+        </ul>
       </div>
    </main>
    <%- include("./partials/footer"); %> 

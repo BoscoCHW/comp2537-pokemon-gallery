@@ -15,9 +15,11 @@ app.use(express.urlencoded({ extended: false }));
 db.connect(process.env.MONGO_URI);
 
 app.get("/api/v2/pokemon/:id", (req, res) => {
+  const { id } = req.params;
   const data = [p1, p4];
-  const randomNum = Math.floor(Math.random() * 2);
-  res.json(data[randomNum]);
+  let index = ["1", "4"].indexOf(id);
+  if (index == -1) index = Math.floor(Math.random() * 2);
+  res.json(data[index]);
 });
 
 app.get("/api/v2/pokemon", (req, res) => {
@@ -53,7 +55,6 @@ app.get("/events/:id", async (req, res) => {
   } else {
     res.json(targetEvent);
   }
-
 });
 
 app.post("/events", async (req, res) => {

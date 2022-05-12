@@ -14,7 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.get("/search", async (req, res) => {
   res.render("search");
 });
@@ -41,7 +40,7 @@ app.get("/profile/:id", async (req, res) => {
     return val / statMaxVal[attribute];
   };
 
-  const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`;
+  const url = `http://localhost:3000/api/v2/pokemon/${req.params.id}`;
   const response = await fetch(url);
   const pokemon = await response.json();
 
@@ -66,6 +65,13 @@ app.get("/profile/:id", async (req, res) => {
   };
 
   res.render("profile", { pokemon: pokeinfo });
+});
+
+app.get("/eventHistory", async (req, res) => {
+  const response = await fetch("http://localhost:3000/events");
+  const data = await response.json();
+  console.log(data);
+  res.render("events", { events: data });
 });
 
 app.listen(PORT, () => {
