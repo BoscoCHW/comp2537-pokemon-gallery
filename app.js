@@ -71,7 +71,24 @@ app.get("/eventHistory", async (req, res) => {
   const response = await fetch("http://localhost:3000/events");
   const data = await response.json();
   data.reverse();
-  res.render("events", { events: data });
+
+  const events = data.map((eventData) => {
+    const dateObj = new Date(eventData.datetime);
+
+    const event = {
+      id: eventData._id,
+      time: dateObj.toLocaleString("en-GB", {
+        timeZone: "Canada/Pacific",
+        dateStyle: "medium",
+        timeStyle: "medium",
+      }),
+      text: eventData.text,
+      hits: eventData.hits,
+    };
+
+    return event;
+  });
+  res.render("events", { events });
 });
 
 app.listen(PORT, () => {
