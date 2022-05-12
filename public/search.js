@@ -1,19 +1,4 @@
-const colorMap = {
-  fire: "#FDDFDF",
-  grass: "#DEFDE0",
-  electric: "#FCF7DE",
-  water: "#DEF3FD",
-  ground: "#f4e7da",
-  rock: "#d5d5d4",
-  fairy: "#fceaff",
-  poison: "#98d7a5",
-  bug: "#f8d5a3",
-  dragon: "#97b3e6",
-  psychic: "#eceda1",
-  flying: "#F5F5F5",
-  fighting: "#E6E0D4",
-  normal: "#F5F5F5",
-};
+import { pokeapiUrl, getPokemon, makePokemonCard } from "./helpers.js";
 
 const regionIdMap = {
   Kanto: {
@@ -50,48 +35,17 @@ const regionIdMap = {
   },
 };
 
-const pokeapiUrl = "https://pokeapi.co/api/v2/";
 const galleryWrapper = document.querySelector("#gallery-wrapper");
 const searchSubmitBtn = document.querySelector("#search-form-btn");
 const regionSelector = document.querySelector("#region-selector");
 const typeSelector = document.querySelector("#type-selector");
 const nameQuery = document.querySelector("#name");
+const prevBtn = document.querySelector("#prev");
+const nextBtn = document.querySelector("#next");
+
 let pokemonList = [];
 const numOfPokemonToDisplay = 9;
 let page = 1;
-
-const getPokemon = async (id) => {
-  const url = `${pokeapiUrl}pokemon/${id}`;
-  const res = await fetch(url);
-  if (!res.ok) return null;
-  const pokemon = await res.json();
-  return pokemon;
-};
-
-const makePokemonCard = (pokemon) => {
-  const pokemonCard = document.createElement("div");
-  pokemonCard.classList.add("pokemon-card");
-
-  const poke_types = pokemon.types.map((type) => type.type.name);
-  const displayType = Object.keys(colorMap).find((type) =>
-    poke_types.includes(type)
-  );
-  const color = colorMap[displayType];
-  const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-
-  pokemonCard.style.backgroundColor = color;
-
-  const pokemonCardContent = `
-    <h3>#${pokemon.id}</h4>
-    <div class="img-container"> 
-      <a href="./profile/${pokemon.id}"> <img src="${pokemon.sprites.other["official-artwork"].front_default}" /> </a>
-    </div>
-    <h1>${name}</h2>
-  `;
-
-  pokemonCard.innerHTML = pokemonCardContent;
-  return pokemonCard;
-};
 
 const getIdFromUrl = (url) => Number(url.split("/")[6]);
 
@@ -155,9 +109,7 @@ async function handleSearch(e) {
   const name = nameQuery.value.toLowerCase();
   await getPokemonOfTypeRegionName(type, region, name);
   page = 1;
-  const prevBtn = document.querySelector("#prev");
   prevBtn.style.display = "none";
-  const nextBtn = document.querySelector("#next");
   if (page * numOfPokemonToDisplay < pokemonList.length) {
     nextBtn.style.display = "inline-block";
   } else {
@@ -170,7 +122,6 @@ const handlePrev = (e) => {
   page -= 1;
   galleryWrapper.innerHTML = "";
   showPokemons();
-  const nextBtn = document.querySelector("#next");
   nextBtn.style.display = "inline-block";
   if (page <= 1) {
     // hide button
@@ -182,7 +133,6 @@ const handleNext = (e) => {
   page += 1;
   galleryWrapper.innerHTML = "";
   showPokemons();
-  const prevBtn = document.querySelector("#prev");
   prevBtn.style.display = "inline-block";
   if (page * numOfPokemonToDisplay >= pokemonList.length) {
     // hide button
@@ -190,10 +140,8 @@ const handleNext = (e) => {
   }
 };
 const init = async () => {
-  const prevBtn = document.querySelector("#prev");
   prevBtn.style.display = "none";
   prevBtn.addEventListener("click", handlePrev);
-  const nextBtn = document.querySelector("#next");
   nextBtn.addEventListener("click", handleNext);
   searchSubmitBtn.addEventListener("click", handleSearch);
 
