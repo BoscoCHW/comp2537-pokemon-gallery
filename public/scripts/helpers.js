@@ -16,7 +16,7 @@ export const colorMap = {
 };
 
 export const pokeapiUrl = "http://localhost:3000/api/v2/";
-export const apiServerUrl = "http://localhost:3000/"
+export const apiServerUrl = "http://localhost:3000/";
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
@@ -42,15 +42,22 @@ export const makePokemonCard = (pokemon) => {
   const pokemonCardContent = `
     <h3>#${pokemon.id}</h4>
     <div class="img-container"> 
-      <a href="./profile/${pokemon.id}"> <img src="${pokemon.sprites.other["official-artwork"].front_default}" /> </a>
+      <img src="${pokemon.sprites.other["official-artwork"].front_default}" />
     </div>
     <h1>${name}</h2>
   `;
 
   pokemonCard.innerHTML = pokemonCardContent;
+
+  pokemonCard.addEventListener("click", (e) => {
+    window.location.assign(`./profile/${pokemon.id}`);
+    const data = {
+      text: `User visited pokemon profile ${pokemon.id} - ${name}`,
+    };
+    postData(`${apiServerUrl}events`, data);
+  });
   return pokemonCard;
 };
-
 
 export async function postData(url = "", data = {}) {
   // Default options are marked with *
@@ -64,7 +71,7 @@ export async function postData(url = "", data = {}) {
   return response.json();
 }
 
-export const handleHomePageBtnClick = async e => {
+export const handleHomePageBtnClick = async (e) => {
   e.preventDefault();
   const data = {
     text: `User visited home page.`,
@@ -73,9 +80,9 @@ export const handleHomePageBtnClick = async e => {
   const result = await postData(url, data);
   console.log(result);
   window.location.assign("/");
-}
+};
 
-export const handleSearchPageBtnClick = async e => {
+export const handleSearchPageBtnClick = async (e) => {
   e.preventDefault();
   const data = {
     text: `User visited search page.`,
@@ -84,4 +91,4 @@ export const handleSearchPageBtnClick = async e => {
   const result = await postData(url, data);
   console.log(result);
   window.location.assign("/search");
-}
+};
