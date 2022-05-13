@@ -41,7 +41,7 @@ app.get("/profile/:id", async (req, res) => {
     return val / statMaxVal[attribute];
   };
 
-  const url = `https://lit-brook-32247.herokuapp.com/api/v2/pokemon/${req.params.id}`;
+  const url = `https://peaceful-spire-42792.herokuapp.com/api/v2/pokemon/${req.params.id}`;
   const response = await fetch(url);
   const pokemon = await response.json();
 
@@ -69,7 +69,7 @@ app.get("/profile/:id", async (req, res) => {
 });
 
 app.get("/eventHistory", async (req, res) => {
-  const response = await fetch("https://lit-brook-32247.herokuapp.com/events");
+  const response = await fetch("https://peaceful-spire-42792.herokuapp.com/events");
   const data = await response.json();
   data.reverse();
 
