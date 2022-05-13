@@ -15,8 +15,8 @@ export const colorMap = {
   normal: "#F5F5F5",
 };
 
-export const pokeapiUrl = "http://localhost:3000/api/v2/";
-export const apiServerUrl = "http://localhost:3000/";
+export const pokeapiUrl = "https://lit-brook-32247.herokuapp.com/api/v2/";
+export const apiServerUrl = "https://lit-brook-32247.herokuapp.com/";
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
