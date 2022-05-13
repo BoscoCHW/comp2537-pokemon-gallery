@@ -41,7 +41,7 @@ app.get("/profile/:id", async (req, res) => {
     return val / statMaxVal[attribute];
   };
 
-  const url = `http://localhost:3000/api/v2/pokemon/${req.params.id}`;
+  const url = `https://lit-brook-32247.herokuapp.com/api/v2/pokemon/${req.params.id}`;
   const response = await fetch(url);
   const pokemon = await response.json();
 
@@ -69,7 +69,7 @@ app.get("/profile/:id", async (req, res) => {
 });
 
 app.get("/eventHistory", async (req, res) => {
-  const response = await fetch("http://localhost:3000/events");
+  const response = await fetch("https://lit-brook-32247.herokuapp.com/events");
   const data = await response.json();
   data.reverse();
 
