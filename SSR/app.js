@@ -8,6 +8,7 @@ app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
+app.set("views", path.resolve(__dirname, "views"));
 
 app.use((req, res, next) => {
   console.log(req.url);
