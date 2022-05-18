@@ -15,8 +15,8 @@ export const colorMap = {
   normal: "#F5F5F5",
 };
 
-export const pokeapiUrl = "https://peaceful-spire-42792.herokuapp.com/api/v2/";
-export const apiServerUrl = "https://peaceful-spire-42792.herokuapp.com/";
+export const pokeapiUrl = "https://pokeapi.co/api/v2/";
+export const apiServerUrl = "http://localhost:5000/api/";
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
@@ -60,7 +60,7 @@ export const makePokemonCard = (pokemon) => {
 };
 
 export async function postData(url = "", data = {}) {
-  // Default options are marked with *
+
   const response = await fetch(url, {
     method: "POST",
     headers: {
