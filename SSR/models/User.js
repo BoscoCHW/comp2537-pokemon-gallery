@@ -21,12 +21,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    shoppingCart: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "ShopItem",
-      },
-    ],
+    shoppingCart: {
+      type: Schema.Types.ObjectId,
+      ref: "Order",
+    },
   },
   {
     _id: true,

@@ -3,10 +3,14 @@ const { Schema } = mongoose;
 
 const shopItemSchema = new Schema(
   {
-    PokemonCard: { 
-      type: Object,
+    pokemonId: { 
+      type: String,
       required: true,
-     },
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
     quantity: {
       type: Number,
       required: true,
