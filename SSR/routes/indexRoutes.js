@@ -59,7 +59,7 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
 });
 
 router.get("/account", ensureAuthenticated, async (req, res) => {
-  const allEvents = await Event.find();
+  const allEvents = await Event.find({user: req.session.user._id}).exec();
   allEvents.reverse();
 
   const events = allEvents.map((eventData) => {

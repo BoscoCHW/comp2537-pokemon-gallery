@@ -55,7 +55,7 @@ const eventController = {
   createEvent: async (req, res) => {
     const { datetime, text } = req.body;
     try {
-      const newEvent = await Event.create({ datetime, text });
+      const newEvent = await Event.create({ datetime, text, user: req.session.user._id });
       res.json(newEvent);
     } catch (e) {
       console.log(e.message);
