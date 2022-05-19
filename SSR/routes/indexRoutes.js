@@ -36,7 +36,6 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
   const response = await fetch(url);
   const pokemon = await response.json();
 
-  console.log(pokemon);
   const { id, name, height, weight, stats, abilities, sprites } = pokemon;
 
   const statistics = stats.map((stat) => ({

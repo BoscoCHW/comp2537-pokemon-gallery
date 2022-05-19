@@ -45,11 +45,12 @@ export const makePokemonCard = (pokemon) => {
       <img src="${pokemon.sprites.other["official-artwork"].front_default}" />
     </div>
     <h1>${name}</h2>
+
   `;
 
   pokemonCard.innerHTML = pokemonCardContent;
-
-  pokemonCard.addEventListener("click", (e) => {
+  const imageContainer = pokemonCard.querySelector(".img-container");
+  imageContainer.addEventListener("click", (e) => {
     window.location.assign(`./profile/${pokemon.id}`);
     const data = {
       text: `User visited pokemon profile ${pokemon.id} - ${name}`,

@@ -94,11 +94,14 @@ main {
   filter: brightness(105%); 
   transform: rotateZ(360deg) scale(1.1);
   transition: 0.5s;
-  cursor: pointer;
 }
 
 .img-container {
   max-width: 400px;
+}
+
+.img-container:hover {
+  cursor: pointer;
 }
 
 img {
