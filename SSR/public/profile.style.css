@@ -19,6 +19,12 @@ ul {
   justify-content: space-around;
 }
 
+.bpc-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .bpc-right {
   display: flex;
   flex-direction: column;

@@ -4,7 +4,6 @@ const ShopItem = require("../models/ShopItem");
 const cartController = {
   addShopItem: async (req, res) => {
     let { pokemonId } = req.body;
-    pokemonId = String(pokemonId);
 
     try {
 

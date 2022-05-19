@@ -43,7 +43,7 @@ export const makePokemonCard = (pokemon) => {
 
   const pokemonCardContent = `
     <h3>#${pokemon.id}</h4>
-    <div class="img-container"> 
+    <div class="gallery-img-container"> 
       <img src="${pokemon.sprites.other["official-artwork"].front_default}" />
     </div>
     <h1>${name}</h2>
@@ -52,7 +52,7 @@ export const makePokemonCard = (pokemon) => {
 
   pokemonCard.innerHTML = pokemonCardContent;
 
-  const imageContainer = pokemonCard.querySelector(".img-container");
+  const imageContainer = pokemonCard.querySelector(".gallery-img-container");
   imageContainer.addEventListener("click", (e) => {
     window.location.assign(`./profile/${pokemon.id}`);
     const data = {
@@ -62,15 +62,21 @@ export const makePokemonCard = (pokemon) => {
   });
 
   const addToCartBtn = pokemonCard.querySelector(".add-to-cart-btn");
-  addToCartBtn.addEventListener("click", (e) => {
-    const data = {
-      pokemonId: pokemon.id,
-    }
-    postData(`${apiServerUrl}addShopItem`, data)
-  })
+
+  const handleAddToCart = (event) => handleAddToCartForPokemon(event, String(pokemon.id))
+  addToCartBtn.addEventListener("click", handleAddToCart)
 
   return pokemonCard;
 };
+
+export async function handleAddToCartForPokemon(event, pokemonId) {
+  const data = {
+    pokemonId,
+  }
+  const responseData = await postData(`${apiServerUrl}addShopItem`, data);
+  console.log(responseData);
+  console.log(event.target)
+}
 
 export async function postData(url = "", data = {}) {
 

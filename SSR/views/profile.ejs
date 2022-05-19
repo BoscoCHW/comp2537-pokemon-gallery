@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/profile.style.css" />
     <script type="module" src="/scripts/helpers.js"></script>
     <script defer type="module" src="/scripts/navEventHandlers.js"></script>
+    <script defer type="module" src="/scripts/profile.js"></script>
 
     <title>Pokemon App</title>
   </head>
@@ -23,7 +24,7 @@
             <div class="img-container">
               <img src="<%= pokemon.imageUrl %>" />
             </div>
-            <button class="add-to-cart-btn"> Add to cart </button>
+            <button class="add-to-cart-btn" id="pokemon-<%= pokemon.id %>"> Add to cart </button>
           </div>
 
           <div class="bpc-right">
