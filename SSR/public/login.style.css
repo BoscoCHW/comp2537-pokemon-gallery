@@ -38,6 +38,12 @@ a:hover {
   color: #84d4ff;
 }
 
+.error-message {
+  margin-top: 1rem;
+  color: red;
+}
+
 #signup, #login {
   margin-top: 1rem;
 }
+

@@ -2,12 +2,15 @@ const fetch = require("node-fetch");
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
+const {ensureAuthenticated} = require("../middlewares/checkAuth")
 
-router.get("/search", (req, res) => {
-  res.render("search", { user: req.user });
+router.get("/", ensureAuthenticated, (req, res) => res.render("index", {user: req.session.user}));
+
+router.get("/search", ensureAuthenticated, (req, res) => {
+  res.render("search", { user: req.session.user });
 });
 
-router.get("/profile/:id", async (req, res) => {
+router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
   const statMaxVal = {
     hp: 100,
     attack: 100,
@@ -53,10 +56,10 @@ router.get("/profile/:id", async (req, res) => {
     abilities: abilities.map((ability) => titleCase(ability.ability.name)),
   };
 
-  res.render("profile", { pokemon: pokeinfo, user: req.user });
+  res.render("profile", { pokemon: pokeinfo, user: req.session.user });
 });
 
-router.get("/eventHistory", async (req, res) => {
+router.get("/account", ensureAuthenticated, async (req, res) => {
   const allEvents = await Event.find();
   allEvents.reverse();
 
@@ -76,7 +79,7 @@ router.get("/eventHistory", async (req, res) => {
 
     return event;
   });
-  res.render("events", { events, user: req.user });
+  res.render("events", { events, user: req.session.user });
 });
 
 module.exports = router;

@@ -1,8 +1,9 @@
 const User = require("../models/User");
 
+
 const authController = {
   loginPage: (req, res) => {
-    res.render("login");
+    res.render("login", {error: false});
   },
 
   registerPage: (req, res) => {
@@ -11,12 +12,14 @@ const authController = {
 
   loginUser: async (req, res) => {
     const {email, password} = req.body;
-    const user = await User.find({email, password}).exec();
+    const user = await User.findOne({email, password}).exec();
+    console.log(user);
     if (user) {
+      req.session.isAuthenticated = true;
       req.session.user = user;
       res.redirect("/");
     } else {
-      res.redirect("/auth/login");
+      res.render("login", {error: true});
     }
 
   },

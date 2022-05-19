@@ -11,13 +11,20 @@ body {
 
 .top-right {
   position: absolute;
+  display: flex;
   top: 2rem;
   right: 2rem;
   min-width: 5rem;
   min-height: 2rem;
+  align-items: center;
 }
 
-#loginBtn {
+.greeting {
+  white-space: nowrap;
+  margin-right: 1rem;
+}
+
+#logoutBtn, #loginBtn {
   display: inline-block;
   text-align: center;
   width: 100%;
@@ -28,7 +35,7 @@ body {
   text-decoration: none;
 }
 
-#loginBtn:hover {
+#logoutBtn:hover, #loginBtn:hover {
   background-color: lightgray;
 }
 

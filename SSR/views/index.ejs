@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="/scripts/helpers.js"></script>
     <script defer type="module" src="/scripts/navEventHandlers.js"></script>
@@ -12,21 +12,14 @@
     <title>Pokemon App</title>
   </head>
   <body>
-    <header>
-      <h1>Pokemon Gallery</h1>
-    </header>
-    <nav>
-      <a id="homePageBtn" href="/"> Home </a>
-      <a id="searchPageBtn" href="/search"> Search </a>
-      <a id="eventHistoryPageBtn" href="/eventHistory"> History </a>
+    <%- include("./partials/headerAndNav", {user: user}); %> 
     </nav>
     <main>
       <div id="gallery-wrapper" class="gallery-wrapper">
       
       </div>
    </main>
-    <footer>
-      <h5>Copyright © Pokemon Gallery 2022</h5>
-    </footer>
+   <%- include("./partials/footer"); %> 
+
   </body>
 </html>

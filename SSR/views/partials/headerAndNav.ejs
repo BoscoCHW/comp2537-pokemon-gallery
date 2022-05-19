@@ -5,6 +5,7 @@
       <div class="greeting">
         <p> Hi, <%= user.firstname %> ! </p>
       </div>
+      <a id="logoutBtn" href="/auth/logout">Logout</a>
     <% } else { %>
         <a id="loginBtn" href="/auth/login">Login</a>
     <% } %> 
@@ -13,5 +14,5 @@
 <nav>
   <a id="homePageBtn" href="/"> Home </a>
   <a id="searchPageBtn" href="/search"> Search </a>
-  <a id="eventHistoryPageBtn" href="/eventHistory"> History </a>
+  <a id="eventHistoryPageBtn" href="/account"> Account </a>
 </nav>
