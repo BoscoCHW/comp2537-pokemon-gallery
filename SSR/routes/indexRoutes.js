@@ -4,7 +4,7 @@ const router = express.Router();
 const Event = require("../models/Event");
 
 router.get("/search", (req, res) => {
-  res.render("search");
+  res.render("search", { user: req.user });
 });
 
 router.get("/profile/:id", async (req, res) => {
@@ -53,7 +53,7 @@ router.get("/profile/:id", async (req, res) => {
     abilities: abilities.map((ability) => titleCase(ability.ability.name)),
   };
 
-  res.render("profile", { pokemon: pokeinfo });
+  res.render("profile", { pokemon: pokeinfo, user: req.user });
 });
 
 router.get("/eventHistory", async (req, res) => {
@@ -76,8 +76,7 @@ router.get("/eventHistory", async (req, res) => {
 
     return event;
   });
-  res.render("events", { events });
+  res.render("events", { events, user: req.user });
 });
-
 
 module.exports = router;

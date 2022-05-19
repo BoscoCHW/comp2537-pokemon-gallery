@@ -30,13 +30,36 @@
     <div class="form">
       <!-- LOGIN FORM -->
       <form
-        class="needs-validation"
-        action="/auth/login"
+        action="/auth/register"
         method="POST"
-        id="loginForm"
+        id="registerForm"
       >
         <div class="form-title mb-3">
-          <h3>Login</h3>
+          <h3>Register</h3>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="firstname"
+            id="firstname"
+            placeholder="First name"
+            required
+          />
+          <label for="firstname" class="form-label">First name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="lastname"
+            id="lastname"
+            placeholder="Last name"
+            required
+          />
+          <label for="lastname" class="form-label">Last name</label>
         </div>
 
         <div class="form-floating mb-3">
@@ -65,12 +88,12 @@
 
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-secondary btn-block">
-            Log in
+            Register
           </button>
         </div>
 
-        <div id="signup">
-          Don't have an account? <a href="/auth/register">Create account</a>
+        <div id="login">
+          Already have an account? <a href="/auth/login">Login</a>
         </div>
       </form>
     </div>
