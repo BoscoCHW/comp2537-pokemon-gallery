@@ -35,7 +35,7 @@ const authController = {
       });
       const newUserFromDB = await newUser.save();
 
-      const newOrder = new Order({ items: [], user: newUserFromDB._id });
+      const newOrder = new Order({ user: newUserFromDB._id });
       await newOrder.save();
 
       res.redirect("/auth/login");

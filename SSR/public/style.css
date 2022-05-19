@@ -92,7 +92,7 @@ main {
 
 .pokemon-card:hover {
   filter: brightness(105%); 
-  transform: rotateZ(360deg) scale(1.1);
+  transform: scale(1.1);
   transition: 0.5s;
 }
 
@@ -106,6 +106,17 @@ main {
 
 img {
   width: 100%;
+}
+
+.add-to-cart-btn {
+  font-size: 1rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  margin: 0.5rem;
+}
+
+.add-to-cart-btn:hover {
+  cursor: pointer;
 }
 
 footer {

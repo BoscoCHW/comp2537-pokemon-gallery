@@ -1,3 +1,4 @@
+
 export const colorMap = {
   fire: "#FDDFDF",
   grass: "#DEFDE0",
@@ -29,6 +30,7 @@ export const getPokemon = async (id) => {
 export const makePokemonCard = (pokemon) => {
   const pokemonCard = document.createElement("div");
   pokemonCard.classList.add("pokemon-card");
+  pokemonCard.id = `pokemon-${pokemon.id}`
 
   const poke_types = pokemon.types.map((type) => type.type.name);
   const displayType = Object.keys(colorMap).find((type) =>
@@ -45,10 +47,11 @@ export const makePokemonCard = (pokemon) => {
       <img src="${pokemon.sprites.other["official-artwork"].front_default}" />
     </div>
     <h1>${name}</h2>
-
+    <button class="add-to-cart-btn"> Add to cart </button>
   `;
 
   pokemonCard.innerHTML = pokemonCardContent;
+
   const imageContainer = pokemonCard.querySelector(".img-container");
   imageContainer.addEventListener("click", (e) => {
     window.location.assign(`./profile/${pokemon.id}`);
@@ -57,6 +60,15 @@ export const makePokemonCard = (pokemon) => {
     };
     postData(`${apiServerUrl}events`, data);
   });
+
+  const addToCartBtn = pokemonCard.querySelector(".add-to-cart-btn");
+  addToCartBtn.addEventListener("click", (e) => {
+    const data = {
+      pokemonId: pokemon.id,
+    }
+    postData(`${apiServerUrl}addShopItem`, data)
+  })
+
   return pokemonCard;
 };
 
