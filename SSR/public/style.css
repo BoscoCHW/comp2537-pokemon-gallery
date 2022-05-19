@@ -119,6 +119,12 @@ img {
   cursor: pointer;
 }
 
+.added-to-cart-message {
+  padding: 0.2rem;
+  font-family: monospace;
+  color: rebeccapurple;
+}
+
 footer {
   margin-top: 3rem;
 }

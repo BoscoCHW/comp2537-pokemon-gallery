@@ -74,8 +74,20 @@ export async function handleAddToCartForPokemon(event, pokemonId) {
     pokemonId,
   }
   const responseData = await postData(`${apiServerUrl}addShopItem`, data);
-  console.log(responseData);
-  console.log(event.target)
+  const addToCartBtnParent = event.target.parentNode;
+  console.log(addToCartBtnParent);
+
+  const createAddedToCartMessageDiv = () => {
+    const addedToCartMessageDiv = document.createElement("div");
+    addedToCartMessageDiv.classList.add("added-to-cart-message");
+    addedToCartMessageDiv.innerText = "Added to cart!";
+    setTimeout(() => {
+      addedToCartMessageDiv.style.display = "none";
+    }, 1000)
+    return addedToCartMessageDiv; 
+  }
+  addToCartBtnParent.appendChild(createAddedToCartMessageDiv())
+  
 }
 
 export async function postData(url = "", data = {}) {
