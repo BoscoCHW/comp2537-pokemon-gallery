@@ -19,4 +19,8 @@ router.delete("/events/:id", eventController.deleteEvent);
 
 router.post("/addShopItem", cartController.addShopItem)
 
+router.get("/getShoppingCartItems", cartController.getShoppingCartItems)
+
+router.get("/checkout", cartController.checkout)
+
 module.exports = router;

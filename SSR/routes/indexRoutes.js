@@ -1,7 +1,7 @@
-const fetch = require("node-fetch");
+
 const express = require("express");
 const router = express.Router();
-const Event = require("../models/Event");
+
 const {ensureAuthenticated} = require("../middlewares/checkAuth")
 const pageController = require("../controllers/pageController");
 

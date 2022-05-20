@@ -1,3 +1,6 @@
+const Event = require("../models/Event");
+const fetch = require("node-fetch");
+
 const pageController = {
   homePage: (req, res) => res.render("index", {user: req.session.user}),
   searchPage: (req, res) => {
@@ -77,7 +80,7 @@ const pageController = {
   shoppingCartPage: async (req, res) => {
 
 
-    res.render("shoppingCart", {shopItems})
+    res.render("shoppingCart", {user: req.session.user})
   }
 
 }

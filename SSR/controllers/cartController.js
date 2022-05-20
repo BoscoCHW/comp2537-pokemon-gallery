@@ -6,14 +6,15 @@ const cartController = {
     let { pokemonId } = req.body;
 
     try {
-
       const order = await Order.findOne({
         user: req.session.user._id,
         checkedOut: false,
       }).exec();
       const cartItems = await ShopItem.find({ order: order._id });
 
-      const targetPokemonCartItem = cartItems.find((cartItem) => cartItem.pokemonId === pokemonId);
+      const targetPokemonCartItem = cartItems.find(
+        (cartItem) => cartItem.pokemonId === pokemonId
+      );
 
       if (targetPokemonCartItem) {
         targetPokemonCartItem.quantity += 1;
@@ -33,6 +34,31 @@ const cartController = {
       console.log(e);
       res.json(e);
     }
+  },
+
+  getShoppingCartItems: async (req, res) => {
+    const userId = req.session.user._id;
+
+    const shoppingCart = await Order.findOne({
+      user: userId,
+      checkedOut: false,
+    }).exec();
+    const cartItems = await ShopItem.find({ order: shoppingCart._id });
+    res.json(cartItems);
+  },
+
+  checkout: async (req, res) => {
+    const userId = req.session.user._id;
+    const shoppingCart = await Order.findOneAndUpdate(
+      {
+        user: userId,
+        checkedOut: false,
+      },
+      { checkedOut: true },
+      { new: true }
+    ).exec();
+    Order.create({ user: userId });
+    res.json(shoppingCart);
   },
 };
 
