@@ -14,7 +14,7 @@ const makeCartItem = (cartItem) => {
       cartItem.quantity * cartItem.price
     } </div> </td>
   `;
-  
+
   const quantityWrapper = cartItemWrapper.querySelector(".quantity-wrapper");
   quantityWrapper.addEventListener("click", async (e) => {
     switch (e.target.className) {
@@ -24,8 +24,7 @@ const makeCartItem = (cartItem) => {
       case "decrement":
         break;
     }
-  })
-
+  });
 
   return cartItemWrapper;
 };

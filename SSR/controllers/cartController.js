@@ -1,3 +1,4 @@
+const Event = require("../models/Event");
 const Order = require("../models/Order");
 const ShopItem = require("../models/ShopItem");
 
@@ -58,6 +59,10 @@ const cartController = {
       { new: true }
     ).exec();
     Order.create({ user: userId });
+    Event.create({
+      text: "User checked out the shopping cart.",
+      user: req.session.user._id,
+    });
     res.json(shoppingCart);
   },
 };
