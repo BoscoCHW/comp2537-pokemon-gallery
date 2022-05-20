@@ -17,10 +17,21 @@ router.put("/events/:id", eventController.updatedEvent);
 
 router.delete("/events/:id", eventController.deleteEvent);
 
-router.post("/addShopItem", cartController.addShopItem)
+router.post("/addShopItem", cartController.addShopItem);
 
-router.get("/getShoppingCartItems", cartController.getShoppingCartItems)
+router.get("/getShoppingCartItems", cartController.getShoppingCartItems);
 
-router.get("/checkout", cartController.checkout)
+router.get("/checkout", cartController.checkout);
+
+router.get(
+  "/shopItem/incrementQuantity/:id",
+  cartController.incrementShopItemQuantity
+);
+
+router.get(
+  "/shopItem/decrementQuantity/:id",
+  cartController.decrementShopItemQuantity
+);
+
 
 module.exports = router;

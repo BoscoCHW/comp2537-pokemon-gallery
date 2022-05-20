@@ -65,6 +65,32 @@ const cartController = {
     });
     res.json(shoppingCart);
   },
+
+  incrementShopItemQuantity: async (req, res) => {
+    const { id } = req.params;
+    const updatedShopItem = await ShopItem.findByIdAndUpdate(
+      id,
+      { $inc: { quantity: 1 } },
+      { new: true }
+    ).exec();
+    console.log(updatedShopItem);
+    res.json(updatedShopItem);
+  },
+
+  decrementShopItemQuantity: async (req, res) => {
+    const { id } = req.params;
+    const updatedShopItem = await ShopItem.findByIdAndUpdate(
+      id,
+      { $inc: { quantity: -1 } },
+      { new: true }
+    ).exec();
+
+    if (updatedShopItem.quantity <= 0) {
+      await ShopItem.findByIdAndRemove(id);
+    }
+    console.log(updatedShopItem);
+    res.json(updatedShopItem);
+  },
 };
 
 module.exports = cartController;

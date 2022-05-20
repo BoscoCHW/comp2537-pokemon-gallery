@@ -1,8 +1,31 @@
 import { apiServerUrl } from "./helpers.js";
 
+var shoppingCartItems;
+
+async function handleQuantityChange(type, cartItemId) {
+  const resp = await fetch(
+    `${apiServerUrl}shopItem/${type}Quantity/${cartItemId}`
+  );
+  const updatedShopItem = await resp.json();
+  const oldShopItem = shoppingCartItems.find(
+    (item) => item._id === updatedShopItem._id
+  );
+  oldShopItem.quantity = updatedShopItem.quantity;
+
+  if (updatedShopItem.quantity == 0) {
+    shoppingCartItems = shoppingCartItems.filter(
+      (item) => item._id !== updatedShopItem._id
+    );
+  }
+  const shoppingCart = document.querySelector("#shopping-cart");
+  shoppingCart.removeChild(shoppingCart.querySelector("#shopping-cart-body"));
+  shoppingCart.appendChild(createShoppingCartTableBody());
+}
+
 const makeCartItem = (cartItem) => {
   const cartItemWrapper = document.createElement("tr");
   cartItemWrapper.classList.add("cart-item-wrapper");
+  cartItemWrapper.id = cartItem._id;
   cartItemWrapper.innerHTML = `
     <td class="text-left"> <div class="product-wrapper"> ${
       cartItem.pokemonId
@@ -16,15 +39,9 @@ const makeCartItem = (cartItem) => {
   `;
 
   const quantityWrapper = cartItemWrapper.querySelector(".quantity-wrapper");
-  quantityWrapper.addEventListener("click", async (e) => {
-    switch (e.target.className) {
-      case "increment":
-        break;
-
-      case "decrement":
-        break;
-    }
-  });
+  quantityWrapper.addEventListener("click", async (e) =>
+    handleQuantityChange(e.target.className, cartItem._id)
+  );
 
   return cartItemWrapper;
 };
@@ -44,10 +61,31 @@ function addCheckoutBtn(shoppingCartWrapper) {
   shoppingCartWrapper.appendChild(checkoutBtnWrapper);
 }
 
+function createShoppingCartTableBody() {
+  const shoppingCartTableBody = document.createElement("tbody");
+  shoppingCartTableBody.id = "shopping-cart-body";
+  shoppingCartItems.forEach((cartItem) => {
+    shoppingCartTableBody.appendChild(makeCartItem(cartItem));
+  });
+
+  const total = shoppingCartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const summaryRow = document.createElement("tr");
+  summaryRow.innerHTML = `
+    <td class="text-left"> </td>
+    <td class="text-right"> Total: </td>
+    <td class="text-right"> <div id="total-price"> $${total} </div> </td>
+  `;
+  shoppingCartTableBody.appendChild(summaryRow);
+  return shoppingCartTableBody;
+}
+
 const init = async () => {
   const shoppingCartWrapper = document.querySelector("#shopping-cart-wrapper");
   const resp = await fetch(`${apiServerUrl}getShoppingCartItems`);
-  const shoppingCartItems = await resp.json();
+  shoppingCartItems = await resp.json();
 
   if (shoppingCartItems.length == 0) {
     const emptyMessage = document.createElement("div");
@@ -61,24 +99,7 @@ const init = async () => {
     shoppingCartTableHeader.innerHTML = `<tr> <th class="text-left"> Product </th> <th class="text-center"> Quantity </th> <th class="text-right"> Sub-Totals </th> </tr>`;
     shoppingCartTable.appendChild(shoppingCartTableHeader);
 
-    const shoppingCartTableBody = document.createElement("tbody");
-
-    shoppingCartItems.forEach((cartItem) => {
-      shoppingCartTableBody.appendChild(makeCartItem(cartItem));
-    });
-
-    const total = shoppingCartItems.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
-    const summaryRow = document.createElement("tr");
-    summaryRow.innerHTML = `
-      <td class="text-left"> </td>
-      <td class="text-right"> Total: </td>
-      <td class="text-right"> <div id="total-price"> $${total} </div> </td>
-    `;
-    shoppingCartTableBody.appendChild(summaryRow);
-    shoppingCartTable.appendChild(shoppingCartTableBody);
+    shoppingCartTable.appendChild(createShoppingCartTableBody());
     shoppingCartWrapper.appendChild(shoppingCartTable);
 
     addCheckoutBtn(shoppingCartWrapper);
