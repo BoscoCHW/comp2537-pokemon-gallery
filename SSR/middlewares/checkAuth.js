@@ -9,6 +9,6 @@ module.exports = {
     if (!req.session.isAuthenticated) {
       return next();
     }
-    res.redirect("/reminders");
+    res.redirect("/account");
   },
 };
