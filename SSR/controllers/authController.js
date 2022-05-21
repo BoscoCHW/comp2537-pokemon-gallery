@@ -17,7 +17,7 @@ const authController = {
     if (user) {
       req.session.isAuthenticated = true;
       req.session.user = user;
-      res.redirect("/");
+      res.redirect("/account");
     } else {
       res.render("login", { error: true });
     }

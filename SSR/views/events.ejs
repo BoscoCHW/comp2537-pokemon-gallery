@@ -19,6 +19,9 @@
         <h1>Previous Orders</h1>
 
         <ul class="prev-orders">
+          <% if (previousOrders.length === 0) { %>
+           <p> You have not placed any order yet.</p>
+          <% } %>
           <% previousOrders.forEach(order => { %>
            <li class="order-wrapper">
              <div class="order-heading">
