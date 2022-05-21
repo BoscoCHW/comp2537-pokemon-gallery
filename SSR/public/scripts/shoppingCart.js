@@ -27,9 +27,12 @@ const makeCartItem = (cartItem) => {
   cartItemWrapper.classList.add("cart-item-wrapper");
   cartItemWrapper.id = cartItem._id;
   cartItemWrapper.innerHTML = `
-    <td class="text-left"> <div class="product-wrapper"> ${
-      cartItem.pokemonId
-    } </div> </td>
+    <td class="text-left"> 
+      <div class="product-wrapper"> 
+      <div class="pokemon-id"> #${cartItem.pokemonId} </div>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${cartItem.pokemonId}.png" />   
+      </div> 
+    </td>
     <td class="text-center"> <div class="quantity-wrapper"> <button class="decrement"> - </button> <div> ${
       cartItem.quantity
     } </div> <button class="increment"> + </button> </div> </td>

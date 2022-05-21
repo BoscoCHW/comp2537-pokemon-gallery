@@ -21,14 +21,16 @@
         <ul class="prev-orders">
           <% previousOrders.forEach(order => { %>
            <li class="order-wrapper">
-             <div style="text-align: left;">Pokemon Card</div>
-             <div>Quantity</div>
-             <div>Subtotal</div>
+             <div class="order-heading">
+               <div style="text-align: left;">Pokemon Card</div>
+               <div>Quantity</div>
+               <div>Subtotal</div>
+             </div>
              <% order.items.forEach(item => { %>
               <div class="item-wrapper">
                 <div class="product"> 
                   <div class="pokemon-id"> #<%= item.pokemonId %> </div>
-                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= item.pokemonId %>.png" />  
+                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= item.pokemonId %>.png" />  
                 </div>
                 <div> <%= item.quantity %> </div>
                 <div> $<%= item.subtotal %> </div>
