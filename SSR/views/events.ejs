@@ -15,10 +15,36 @@
   <body>
     <%- include("./partials/headerAndNav", {user: user}); %> 
     <main>
-      <div class="shopping-cart-wrapper">
-        
+      <div class="prev-order-wrapper">
+        <h1>Previous Orders</h1>
+
+        <ul class="prev-orders">
+          <% previousOrders.forEach(order => { %>
+           <li class="order-wrapper">
+             <div style="text-align: left;">Pokemon Card</div>
+             <div>Quantity</div>
+             <div>Subtotal</div>
+             <% order.items.forEach(item => { %>
+              <div class="item-wrapper">
+                <div class="product"> 
+                  <div class="pokemon-id"> #<%= item.pokemonId %> </div>
+                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= item.pokemonId %>.png" />  
+                </div>
+                <div> <%= item.quantity %> </div>
+                <div> $<%= item.subtotal %> </div>
+              </div>
+             <% }) %>
+             <div class="item-wrapper total-price">
+              <div> </div>
+              <div> Total: </div>
+              <div> $<%= order.total %> </div>
+            </div>
+           </li>
+          <% }) %>
+          </ul>
       </div>
       <div class="event-history-wrapper">
+        <h1>User Events</h1> 
         <ul class="event-history">
         <% events.forEach(event => { %>
           <li class="event-wrapper" id="<%= event.id %>">

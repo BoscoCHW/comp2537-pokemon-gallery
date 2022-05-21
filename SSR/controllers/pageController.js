@@ -1,8 +1,10 @@
 const Event = require("../models/Event");
 const fetch = require("node-fetch");
+const Order = require("../models/Order");
+const ShopItem = require("../models/ShopItem");
 
 const pageController = {
-  homePage: (req, res) => res.render("index", {user: req.session.user}),
+  homePage: (req, res) => res.render("index", { user: req.session.user }),
   searchPage: (req, res) => {
     res.render("search", { user: req.session.user });
   },
@@ -27,18 +29,18 @@ const pageController = {
     const normalizeStat = (attribute, val) => {
       return val / statMaxVal[attribute];
     };
-  
+
     const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`;
     const response = await fetch(url);
     const pokemon = await response.json();
-  
+
     const { id, name, height, weight, stats, abilities, sprites } = pokemon;
-  
+
     const statistics = stats.map((stat) => ({
       attribute: formatStatsAttributeName(stat.stat.name),
       val: normalizeStat(stat.stat.name, stat.base_stat),
     }));
-  
+
     statistics.push(
       { attribute: "height", val: normalizeStat("height", height) },
       { attribute: "weight", val: normalizeStat("weight", weight) }
@@ -50,17 +52,33 @@ const pageController = {
       statistics,
       abilities: abilities.map((ability) => titleCase(ability.ability.name)),
     };
-  
+
     res.render("profile", { pokemon: pokeinfo, user: req.session.user });
   },
 
   accountPage: async (req, res) => {
-    const allEvents = await Event.find({user: req.session.user._id}).exec();
+    const allEvents = await Event.find({ user: req.session.user._id }).exec();
     allEvents.reverse();
-  
+
+    const allPrevOrder = await Order.find({
+      user: req.session.user._id,
+      checkedOut: true,
+    }).exec();
+    allPrevOrder.reverse();
+
+    const previousOrders = [];
+    for (let prevOrder of allPrevOrder) {
+      const items = await ShopItem.find({ order: prevOrder._id });
+      const order = {
+        items,
+        total: items.reduce((acc, item) => acc + item.subtotal, 0),
+      };
+      previousOrders.push(order);
+    }
+
     const events = allEvents.map((eventData) => {
       const dateObj = new Date(eventData.datetime);
-  
+
       const event = {
         id: eventData._id,
         time: dateObj.toLocaleString("en-GB", {
@@ -71,20 +89,19 @@ const pageController = {
         text: eventData.text,
         hits: eventData.hits,
       };
-  
+
       return event;
     });
-    res.render("events", { events, user: req.session.user });
+    res.render("events", {
+      events,
+      user: req.session.user,
+      previousOrders,
+    });
   },
 
   shoppingCartPage: async (req, res) => {
+    res.render("shoppingCart", { user: req.session.user });
+  },
+};
 
-
-    res.render("shoppingCart", {user: req.session.user})
-  }
-
-}
-
-
-
-module.exports = pageController
+module.exports = pageController;
