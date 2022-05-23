@@ -17,7 +17,7 @@ export const colorMap = {
 };
 
 export const pokeapiUrl = "https://pokeapi.co/api/v2/";
-export const apiServerUrl = "http://localhost:5000/api/";
+export const apiServerUrl = "https://damp-savannah-93534.herokuapp.com/api/";
 
 export const getPokemon = async (id) => {
   const url = `${pokeapiUrl}pokemon/${id}`;
