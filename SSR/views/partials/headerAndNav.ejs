@@ -16,4 +16,8 @@
   <a id="searchPageBtn" href="/search"> Search </a>
   <a id="eventHistoryPageBtn" href="/account"> Profile </a>
   <a id="shoppingCartPageBtn" href="/shoppingCart"> Cart </a>
+  <a id="memoryGamePageBtn" href="/memoryGame"> Game </a>
+  <% if (user.isAdmin) { %>
+    <a id="adminDashboardPageBtn" href="/adminDashboard"> Dashboard </a>
+  <% } %>
 </nav>

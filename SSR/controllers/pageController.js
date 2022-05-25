@@ -102,6 +102,14 @@ const pageController = {
   shoppingCartPage: async (req, res) => {
     res.render("shoppingCart", { user: req.session.user });
   },
+
+  gamePage: (req, res) => {
+    res.render("game");
+  },
+
+  dashboardPage: (req, res) => {
+    res.render("dashboard");
+  },
 };
 
 module.exports = pageController;

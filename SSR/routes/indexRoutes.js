@@ -15,4 +15,8 @@ router.get("/account", ensureAuthenticated, pageController.accountPage);
 
 router.get("/shoppingCart", ensureAuthenticated, pageController.shoppingCartPage)
 
+router.get("/memoryGame", ensureAuthenticated, pageController.gamePage);
+
+router.get("/adminDashboard", ensureAuthenticated, pageController.dashboardPage);
+
 module.exports = router;
