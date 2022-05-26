@@ -4,26 +4,84 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="/game.style.css">
+    <link rel="stylesheet" href="/game.style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module" src="/scripts/helpers.js"></script>
     <script defer type="module" src="/scripts/navEventHandlers.js"></script>
     <script defer type="module" src="/scripts/game.js"></script>
     <title>Pokemon App</title>
   </head>
   <body>
-    <%- include("./partials/headerAndNav", {user: user}); %> 
+    <%- include("./partials/headerAndNav", {user: user}); %>
     <main>
       <div id="game-wrapper">
         <div id="game-grid">
-          
+          <div class="card">
+            <img id="img1" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img2" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img3" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img4" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img5" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img6" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img5" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img6" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img5" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img6" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img5" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
+          <div class="card">
+            <img id="img6" class="front_face" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="" />
+            <img class="back_face" src="/img/pokeball.png" alt="" />
+          </div>
+
         </div>
       </div>
-
     </main>
 
-    <%- include("./partials/footer"); %> 
-
+    <%- include("./partials/footer"); %>
   </body>
 </html>

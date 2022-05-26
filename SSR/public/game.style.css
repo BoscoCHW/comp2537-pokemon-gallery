@@ -1,38 +1,35 @@
-body {
-  margin: 0px;
-}
 
-
-.game-grid {
-  border: 2px tomato solid;
-  width: 600px;
-  height: 400px;
+#game-grid{
   margin: auto;
+  padding: 2rem;
+  border: 1rem tomato solid;
   display: flex;
   flex-wrap: wrap;
-  perspective: 1000px;
-
+  justify-content: space-around;
+  max-width: 600px;
+  perspective: 700px;
+  gap: 10px
 }
 
-
-.card {
-  width: 25%;
+.card{
+  width: 100px;
+  height: 120px;
   position: relative;
-  transition: transform 3s;
+  transition: transform 1s;
   transform-style: preserve-3d;
 }
 
-.flip {
-  transform: rotateY()
-}
 
-img {
-  width: 100px;
-  height: 125px;
-}
-
-
-.front_face, .back_face {
+.front_face, .back_face{
   position: absolute;
+  backface-visibility: hidden;
+}
 
+.front_face {
+  transform: rotateY(180deg);
+}
+
+
+.flip {
+  transform: rotateY(180deg);
 }

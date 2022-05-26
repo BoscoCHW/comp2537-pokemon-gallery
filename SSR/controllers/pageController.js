@@ -104,11 +104,11 @@ const pageController = {
   },
 
   gamePage: (req, res) => {
-    res.render("game");
+    res.render("game", { user: req.session.user });
   },
 
   dashboardPage: (req, res) => {
-    res.render("dashboard");
+    res.render("dashboard", { user: req.session.user });
   },
 };
 

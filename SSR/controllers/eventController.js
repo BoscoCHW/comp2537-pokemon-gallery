@@ -82,7 +82,7 @@ const eventController = {
       res.status(500).send(e);
     }
   },
-  
+
   deleteEvent: async (req, res) => {
     const { id } = req.params;
     const result = await Event.deleteOne({ _id: id });
