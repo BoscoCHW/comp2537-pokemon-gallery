@@ -1,19 +1,26 @@
-#user-list-wrapper > h1 {
-  text-align: center;
+.header {
+  width: 85%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
-h1 {
-  margin-bottom: 2rem;
+#user-list-wrapper {
+  width: 85%;
 }
 
 .card {
   margin-bottom: 2rem;
-  min-width: 500px;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
+}
+
+.name > span {
+  margin-left: 1rem;
+  color: blue;
 }
 
 .isAdmin {

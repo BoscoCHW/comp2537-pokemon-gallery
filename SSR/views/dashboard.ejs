@@ -26,31 +26,146 @@
     <title>Pokemon App</title>
   </head>
   <body>
-    <%- include("./partials/headerAndNav", {user: user}); %>
-    <main>
-      <div id="user-list-wrapper">
-        <h1>User Accounts</h1>
-        <% userAccounts.forEach((user, index)=> { %>
+    <header>
+      <h1>Pokemon Gallery</h1>
+    </header>
+    <nav>
+      <a id="homePageBtn" href="/"> Home </a>
+      <a id="searchPageBtn" href="/search"> Search </a>
+      <a id="eventHistoryPageBtn" href="/account"> Profile </a>
+      <a id="shoppingCartPageBtn" href="/shoppingCart"> Cart </a>
+      <a id="memoryGamePageBtn" href="/memoryGame"> Game </a>
+      <a id="adminDashboardPageBtn" href="/adminDashboard"> Dashboard </a>
+    </nav>
 
-        <div class="card" id="<%= user._id %> ">
+    <main>
+      <div class="header">
+        <h1>User Accounts</h1>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Add User
+        </button>
+      </div>
+
+      <!-- Add and Edit User Form (Modal) -->
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="userForm" action="/api/user/create" method="POST">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="firstname"
+                    id="firstname"
+                    placeholder="First name"
+                    required
+                  />
+                  <label for="firstname" class="form-label">First name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="lastname"
+                    id="lastname"
+                    placeholder="Last name"
+                    required
+                  />
+                  <label for="lastname" class="form-label">Last name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    required
+                  />
+                  <label for="email" class="form-label">Email address</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                  />
+                  <label for="password" class="form-label">Password</label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="userFormSubmitBtn"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="user-list-wrapper">
+        <% userAccounts.forEach((acc, index)=> { %>
+
+        <div class="card" id="<%= acc._id %> ">
           <div class="card-header">
-            <div class="name"><%= user.firstname %> <%= user.lastname %></div>
-            <% if (user.isAdmin) { %>
+            <div class="name"><%= acc.firstname %> <%= acc.lastname %>
+              <% if (user.email === acc.email) { %>
+                <span>&lt;Yourself&gt;</span>
+                <% } %>
+            </div>
+            <% if (acc.isAdmin) { %>
             <div class="isAdmin">Admin ⛨</div>
             <% } %>
           </div>
           <div class="card-body">
             <div class="user-content">
-              <p>Email: <%= user.email %></p>
-              <p>Password: <%= user.password %></p>
-              <p>Created at: <%= user.createdAt.toLocaleString() %></p>
+              <p>Email: <%= acc.email %></p>
+              <p>Password: <%= acc.password %></p>
+              <p>Created at: <%= acc.createdAt.toLocaleString() %></p>
             </div>
 
             <div class="buttons">
-              <button
-                class="btn btn-primary editBtn"
-                type="button"
-              >
+              <% if (user.email !== acc.email) { %>
+              <button class="btn btn-primary editBtn" type="button">
                 Edit
               </button>
 
@@ -62,7 +177,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#delete-modal-<%= index %>"
               />
-
+              <% } %>
               <!-- Modal -->
               <div
                 class="modal fade"

@@ -19,7 +19,7 @@ const userController = {
       res.json(newUserFromDB);
     } catch (e) {
       console.log(e);
-      res.json(e);
+      res.status(400).json(e);
     }
   },
 

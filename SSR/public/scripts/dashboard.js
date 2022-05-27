@@ -13,16 +13,12 @@ const handleDelete = async (card) => {
 userCards.forEach((userCard) => {
   userCard.addEventListener("click", (e) => {
     switch (e.target.className) {
-      case "deleteUser btn secondary-primary":
-
+      case "btn btn-primary confirmDeletion":
         // Closes the Bootstrap modal using JS
-        let userCardModal = userCard.querySelector(".modal");
-        // let userCardModalComponent = new bootstrap.Modal(userCardModal);
-
-        userCardModal.addEventListener('hidden.bs.modal', () => {
+        const userCardModal = userCard.querySelector(".modal");
+        userCardModal.addEventListener("hidden.bs.modal", () => {
           handleDelete(userCard);
         });
-        // userCardModalComponent.hide();
         break;
     }
   });
@@ -33,4 +29,18 @@ document.querySelectorAll(".editBtn").forEach((editBtn) => {
   editBtn.addEventListener("click", () => {
     window.location.href = `/editWorryEntry/${editBtn.id}`;
   });
+});
+
+const userFormSubmitBtn = document.querySelector("#userFormSubmitBtn");
+userFormSubmitBtn.addEventListener("click", async (e) => {
+  const body = new URLSearchParams(
+    new FormData(document.querySelector("#userForm"))
+  );
+
+  const resp = await fetch("/api/user/create", { method: "POST", body });
+  if (resp.ok) {
+    location.href = "/adminDashboard";
+  } else {
+    console.log(await resp.json());
+  }
 });
