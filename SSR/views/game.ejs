@@ -17,6 +17,22 @@
     <%- include("./partials/headerAndNav", {user: user}); %>
     <main>
       <div id="game-wrapper">
+        <div id="game-configs">
+          <div class="width input-wrapper">
+            <label for="width">Width</label>
+            <input type="text" name="width" id="width">
+          </div>
+          <div class="length input-wrapper">
+            <label for="length">Length</label>
+            <input type="text" name="length" id="length">
+          </div>
+          <div class="num-of-pokemons input-wrapper">
+            <label for="pokemonNums">Number of Pokemons</label>
+            <input type="text" name="pokemonNums" id="pokemonNums">
+          </div>
+          <button id="start-btn">Start</button>
+        </div>
+        <div class="error-message"></div>
         <div id="game-grid">
         </div>
       </div>
