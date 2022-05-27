@@ -1,0 +1,21 @@
+#user-list-wrapper > h1 {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+.card {
+  margin-bottom: 2rem;
+  min-width: 500px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.isAdmin {
+  color: brown;
+}

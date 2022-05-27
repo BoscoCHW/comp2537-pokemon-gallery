@@ -2,6 +2,7 @@ const Event = require("../models/Event");
 const fetch = require("node-fetch");
 const Order = require("../models/Order");
 const ShopItem = require("../models/ShopItem");
+const User = require("../models/User")
 
 const pageController = {
   homePage: (req, res) => res.render("index", { user: req.session.user }),
@@ -107,8 +108,9 @@ const pageController = {
     res.render("game", { user: req.session.user });
   },
 
-  dashboardPage: (req, res) => {
-    res.render("dashboard", { user: req.session.user });
+  dashboardPage: async (req, res) => {
+    const allUsers = await User.find({});
+    res.render("dashboard", { user: req.session.user, userAccounts: allUsers });
   },
 };
 
