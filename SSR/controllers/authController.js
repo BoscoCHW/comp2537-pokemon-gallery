@@ -13,7 +13,6 @@ const authController = {
   loginUser: async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password }).exec();
-    console.log(user);
     if (user) {
       req.session.isAuthenticated = true;
       req.session.user = user;

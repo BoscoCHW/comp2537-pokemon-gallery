@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const eventController = require("../controllers/eventController");
 const cartController = require("../controllers/cartController");
+const { ensureAuthenticated, isAdmin } = require("../middlewares/checkAuth");
+const userController = require("../controllers/userController");
 
 router.get("/events", eventController.getAllEvents);
 
@@ -32,6 +34,12 @@ router.get(
   "/shopItem/decrementQuantity/:id",
   cartController.decrementShopItemQuantity
 );
+
+router.post("/user/create", ensureAuthenticated, isAdmin, userController.addUser)
+
+router.put("/user/update/:id", ensureAuthenticated, isAdmin, userController.updateUser)
+
+router.delete("/user/remove/:id", ensureAuthenticated, isAdmin, userController.deleteUser)
 
 
 module.exports = router;
