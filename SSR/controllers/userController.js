@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Order = require("../models/Order");
+const Event = require("../models/Event");
 
 const userController = {
   addUser: async (req, res) => {
@@ -48,9 +49,13 @@ const userController = {
 
   deleteUser: async (req, res) => {
     const { id } = req.params;
-    console.log(id)
+    console.log(id);
     try {
       const deletedUser = await User.findByIdAndRemove(id).exec();
+      Event.create({
+        user: req.session.user._id,
+        text: `Admin deleted user ${deletedUser.firstname}.`,
+      });
       res.json(deletedUser);
     } catch (e) {
       console.log(e);

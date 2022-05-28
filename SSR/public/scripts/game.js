@@ -9,6 +9,7 @@ let firstCard = null;
 let secondCard = null;
 let pokemonCardsLocked = false;
 let flippedCardNum = 0;
+let won = false;
 
 // pokemon image url
 const pokemonImgUrl =
@@ -88,6 +89,7 @@ startBtn.addEventListener("click", (e) => {
     card.addEventListener("click", handleCardClick);
     gameGrid.appendChild(card);
   });
+  counter();
 });
 
 function handleCardClick(event) {
@@ -120,10 +122,11 @@ function handleCardClick(event) {
       firstCard = null;
       secondCard = null;
       flippedCardNum += 2;
-      if (flippedCardNum == numOfCards) {
+      if (flippedCardNum === numOfCards) won = true;
+      if (won) {
         displayMessage("You won!");
         postData("/api/events", {
-          text: `The user won the pokemon memory game.`,
+          text: `User won the pokemon memory game.`,
         });
       }
     } else {
@@ -139,4 +142,46 @@ function handleCardClick(event) {
       }, 1000);
     }
   }
+}
+
+function counter() {
+  var totalTime = 1;
+  var hrs = Math.floor(totalTime / 60);
+  var min = totalTime % 60;
+
+  var yourDateToGo = new Date();
+  yourDateToGo.setMinutes(yourDateToGo.getMinutes() + min);
+  yourDateToGo.setHours(yourDateToGo.getHours() + hrs);
+
+  var timing = setInterval(function () {
+    var currentDate = new Date().getTime();
+    var timeLeft = yourDateToGo - currentDate;
+
+    var hours = Math.floor(
+      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    if (hours < 10) hours = "0" + hours;
+    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    if (minutes < 10) minutes = "0" + minutes;
+    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    if (seconds < 10) seconds = "0" + seconds;
+
+    document.querySelector(".timer").innerHTML =
+      "Time left: " + minutes + "m " + seconds + "s";
+    if (won) {
+      clearInterval(timing);
+    }
+    if (timeLeft <= 0) {
+      document.querySelector(".timer").innerHTML = "Time's Up!";
+      clearInterval(timing);
+      displayMessage("You lost");
+      postData("/api/events", {
+        text: `User lost the pokemon memory game.`,
+      });
+      document.querySelectorAll(".card").forEach((card) => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+      });
+    }
+  }, 1000);
 }
