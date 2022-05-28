@@ -1,4 +1,4 @@
-import { shuffle } from "./helpers.js";
+import { shuffle, postData } from "./helpers.js";
 
 // game configs
 let width, length, numOfPokemons;
@@ -13,6 +13,19 @@ let flippedCardNum = 0;
 // pokemon image url
 const pokemonImgUrl =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
+
+function flashMessage(message) {
+  const messageDiv = document.querySelector(".message");
+  messageDiv.textContent = message;
+  setTimeout(() => {
+    messageDiv.textContent = "";
+  }, 1500);
+}
+function displayMessage(message) {
+  const messageDiv = document.querySelector(".message");
+  messageDiv.textContent = message;
+  messageDiv.style.fontSize = "3rem";
+}
 
 const startBtn = document.querySelector("#start-btn");
 startBtn.addEventListener("click", (e) => {
@@ -32,36 +45,32 @@ startBtn.addEventListener("click", (e) => {
   });
 
   if ((width * length) % 2 !== 0) {
-    const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent =
-      "Width and length should multiply to an even number.";
-    setTimeout(() => {
-      errorDiv.textContent = "";
-    }, 1000);
+    flashMessage("Width and length should multiply to an even number.");
     return;
   }
 
   if (numOfPokemons < 2 || numOfPokemons * 2 > width * length) {
-    const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = "Invalid number of pokemons.";
-    setTimeout(() => {
-      errorDiv.textContent = "";
-    }, 1000);
+    flashMessage("Invalid number of pokemons.");
     return;
   }
-  
+
   gameConfigsDiv.parentElement.removeChild(gameConfigsDiv);
-  
+
   const gameGrid = document.getElementById("game-grid");
-  gameGrid.style.width = `${110 * length + 96}px`
+  gameGrid.style.width = `${110 * length + 96}px`;
 
   numOfCards = width * length;
   const pokemonCards = [];
 
+  const pokemonIds = [];
+  for (let i = 0; i < numOfPokemons; i++)
+    pokemonIds.push(Math.floor(Math.random() * 900) + 1);
+
   let pokemonId;
   for (let i = 0; i < numOfCards; i++) {
     if (i % 2 == 0) {
-      pokemonId = Math.floor(Math.random() * 900) + 1;
+      const idx = (i / 2) % numOfPokemons;
+      pokemonId = pokemonIds[idx];
     }
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add("card");
@@ -111,8 +120,11 @@ function handleCardClick(event) {
       firstCard = null;
       secondCard = null;
       flippedCardNum += 2;
-      if (flippedCardNum == 16) {
-        console.log("you won!");
+      if (flippedCardNum == numOfCards) {
+        displayMessage("You won!");
+        postData("/api/events", {
+          text: `The user won the pokemon memory game.`,
+        });
       }
     } else {
       console.log("not a match");
